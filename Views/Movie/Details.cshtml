@@ -1,0 +1,47 @@
+@model Movie
+@{
+    Layout = "_AdminLayout";
+}
+<br>
+<a href="/Movie/Index" class="btn btn-primary btn-sm float-right">Listeye Dön</a>
+<br>
+<hr>
+<div class="card mt-3" style="max-width: 1140px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="~/img/@Model.ImageUrl" class="img-fluid rounded-start" alt="@Model.Name">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <br>
+                <hr>
+
+                <ul class="card__meta">
+                    <li style="display: inline;"><span>Genre:</span>
+                        <ul>
+                            @foreach (var item in Model.Genres)
+                            {
+                                <li>
+                                    @item.Name
+                                </li>
+                            }
+                        </ul>
+
+                    </li>
+                    <li><span>Release year:</span> @Model.ReleaseYear</li>
+                    <li><span>Running time:</span> @Model.RunningTime</li>
+                    <li><span>Country:</span> <a href="#">USA</a> </li>
+
+                </ul>
+
+                <div class="card__description card__description--details">
+                    @Html.Raw(Model.Description)
+                </div>
+                <p class="card-text"><small class="text-muted">@Model.ReleaseYear</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- details content -->

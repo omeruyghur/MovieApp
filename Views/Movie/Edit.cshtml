@@ -1,0 +1,95 @@
+@model MovieEditViewModel
+@{
+    Layout = "_AdminLayout";
+}
+<h3>Edit Movie</h3>
+<hr>
+<form asp-controller="Movie" asp-action="Edit" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" name="MovieId" value="@Model.MovieId">
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" value="@Model.Name" class="form-control" placeholder="Title">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea id="editor" asp-for="Description" value="@Model.Description" class="form-control"
+                    placeholder="Description">Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quality"></label>
+                <input asp-for="Quality" value="@Model.Quality" class="form-control" placeholder="Quality">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseYear"></label>
+                <input asp-for="ReleaseYear" value="@Model.ReleaseYear" class="form-control" placeholder="ReleaseYear">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Imdb"></label>
+                <input asp-for="Imdb" value="@Model.Imdb" class="form-control" placeholder="Imdb">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="RunningTime"></label>
+                <input asp-for="RunningTime" value="@Model.RunningTime" class="form-control" placeholder="RunningTime">
+
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" @(Model.IsHome? "checked":"") value="@Model.IsHome" asp-for="IsHome"
+                    type="checkbox">
+                <label asp-for="IsHome" class="form-check-label"> </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" @(Model.IsSlayder? "checked":"") value="@Model.IsSlayder"
+                    asp-for="IsSlayder" type="checkbox">
+                <label asp-for="IsSlayder" class="form-check-label"> </label>
+            </div>
+
+
+
+            <div class="form-group mb-3">
+                <input type="file" value="@Model.ImageUrl" name="file" class="form-control" placeholder="Resim seçin">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <!--viewbagden aldiğimiz tür bilgilerini güncelleme sayfasında gösterir-->
+            @foreach (var item in (List<Genre>)ViewBag.Genres)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="@item.Id" id="genre_@item.Id" name="GenreIds"
+                    @(Model.GenreIds!=null? Model.GenreIds.Any(i=>i==item.Id) ? "checked" : "":"")>
+                    <label class="form-check-label" for="genre_@item.Id">
+                        @item.Name
+                    </label>
+                </div>
+            }
+            <span asp-validation-for="GenreIds" class="text-danger"></span>
+            <div>
+                <br>
+                <hr>
+                <img src="~/img/@Model.ImageUrl" width="150px" alt="">
+            </div>
+        </div>
+
+    </div>
+</form>
+@section scripts
+{
+<script src="/modules/ckeditor/ckeditor.js"></script>
+@* <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> *@
+<script>
+    CKEDITOR.replace('editor');
+</script>
+}

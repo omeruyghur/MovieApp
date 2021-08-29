@@ -1,0 +1,13 @@
+.header__auth {
+    margin-right: 20px;
+}
+.header__nav-item {
+    margin: 0 25px 0 0;
+    width: auto;
+  }
+  .home {
+    padding: 20px 0;
+}
+.form-check-input {
+  margin-left: 1.25rem;
+}

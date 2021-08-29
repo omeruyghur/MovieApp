@@ -1,0 +1,87 @@
+<style>
+	.header__auth {
+		margin-right: 45px;
+	}
+</style>
+<!-- header -->
+<header class="header">
+	<div class="header__wrap">
+
+		<div class="row">
+			<div class="col-12">
+				<div class="header__content">
+					<!-- header logo -->
+					<a href="/" class="header__logo">
+						<img src="/Template/img/logo.svg" alt="">
+					</a>
+					<!-- end header logo -->
+
+					<!-- header nav -->
+					<ul class="header__nav">
+						<!-- dropdown -->
+
+						@await Component.InvokeAsync("Genre")
+						<!-- end dropdown -->
+
+						<!-- dropdown -->
+						@* <li class="dropdown header__nav-item">
+							<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button"
+							id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+
+							<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+							<li><a href="/Movie/Index">Admin</a></li>
+							<li><a href="signin.html">Sign In</a></li>
+							<li><a href="signup.html">Sign Up</a></li>
+							<li><a href="404.html">404 Page</a></li>
+							</ul>
+							</li> *@
+						<!-- end dropdown -->
+					</ul>
+					<!-- end header nav -->
+
+					<!-- header auth -->
+					<div class="header__auth">
+						<button class="header__search-btn" type="button">
+							<i class="icon ion-ios-search"></i>
+						</button>
+						@if (User.Identity.IsAuthenticated)
+						{
+							<a asp-controller="Admin" asp-action="Logout" class="header__sign-in">
+								<i class="icon ion-ios-log-in"></i>
+								<span>Logout</span>
+							</a>
+						}
+						else
+						{
+							<a asp-controller="Admin" asp-action="Login" class="header__sign-in">
+								<i class="icon ion-ios-log-in"></i>
+								<span>Login</span>
+							</a>
+						}
+
+					</div>
+					<!-- end header auth -->
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- header search -->
+	<form action="#" class="header__search">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="header__search-content">
+						<input type="text" name="q" placeholder="Search for a movie">
+						<button type="submit" value="submit">search</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- end header search -->
+</header>

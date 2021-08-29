@@ -1,0 +1,82 @@
+@model MovieViewModel
+@{
+    Layout = "_AdminLayout";
+}
+<h3>Create Movie</h3>
+<hr>
+<form asp-controller="Movie" asp-action="Create" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Title">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea id="editor" asp-for="Description" class="form-control"
+                    placeholder="Description">Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quality"></label>
+                <input asp-for="Quality" class="form-control" placeholder="Quality">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseYear"></label>
+                <input asp-for="ReleaseYear" class="form-control" placeholder="ReleaseYear">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Imdb"></label>
+                <input asp-for="Imdb" class="form-control" placeholder="Imdb">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="RunningTime"></label>
+                <input asp-for="RunningTime" class="form-control" placeholder="RunningTime">
+
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsHome" type="checkbox">
+                <label asp-for="IsHome" class="form-check-label"> </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsSlayder" type="checkbox">
+                <label asp-for="IsSlayder" class="form-check-label"> </label>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="file" name="file" class="form-control" placeholder="Resim seçin">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <!--viewbagden aldiğimiz tür bilgilerini güncelleme sayfasında gösterir-->
+            @foreach (var item in (List<Genre>)ViewBag.Genres)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="@item.Id" id="genre_@item.Id" name="genreIds">
+                    <label class="form-check-label" for="genre_@item.Id">
+                        @item.Name
+                    </label>
+                </div>
+            }
+            <span asp-validation-for="GenreIds" class="text-danger"></span>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+<script src="/modules/ckeditor/ckeditor.js"></script>
+@* <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> *@
+<script>
+    CKEDITOR.replace('editor');
+</script>
+}
